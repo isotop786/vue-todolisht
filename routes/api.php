@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/items',[ItemsController::class,'index']);
+
+Route::prefix('/item')->group(function(){
+    Route::post('/store',[ItemsController::class,'store']);
+    Route::put('/{id}',[ItemsController::class,'update']);
+    Route::delete('/{id}',[ItemsController::class,'destroy']);
+});

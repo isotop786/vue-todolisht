@@ -15,17 +15,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        return Item::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Item::orderBy('created_at','DESC')->get();
     }
 
     /**
@@ -36,7 +26,13 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $item = new Item;
+
+        $item->name = $request->item["name"];
+        $item->save();
+
+        return $item;
     }
 
     /**
