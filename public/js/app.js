@@ -1915,6 +1915,17 @@ __webpack_require__.r(__webpack_exports__);
         _this2.data = res.data;
       });
       console.log(this.data);
+    },
+    deleteTodo: function deleteTodo(id) {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_4___default().delete("/api/item/".concat(id)).then(function (res) {
+        console.log(res);
+
+        _this3.fetchTodo();
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   created: function created() {
@@ -2079,6 +2090,17 @@ __webpack_require__.r(__webpack_exports__);
   props: ['name', 'completed'],
   created: function created() {
     console.log(this.completed);
+  },
+  methods: {
+    deleteTodo: function deleteTodo() {
+      var con = confirm('Are you sure to delete');
+
+      if (con) {
+        this.$emit('set-delete');
+      } else {
+        alert(0);
+      }
+    }
   }
 });
 
@@ -19954,7 +19976,12 @@ var render = function() {
                     { key: d.id },
                     [
                       _c("ItemList", {
-                        attrs: { name: d.name, completed: d.completed }
+                        attrs: { name: d.name, completed: d.completed },
+                        on: {
+                          "set-delete": function($event) {
+                            return _vm.deleteTodo(d.id)
+                          }
+                        }
                       })
                     ],
                     1
@@ -20247,7 +20274,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [_vm._v(_vm._s(_vm.name) + " "), _vm._m(0)]),
+    _c("h3", [
+      _vm._v(_vm._s(_vm.name) + " "),
+      _c(
+        "span",
+        {
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.deleteTodo($event)
+            }
+          }
+        },
+        [
+          _c("i", {
+            staticClass: "fa fa-trash",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c("p", [
       _vm._v(
@@ -20262,14 +20308,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", [_c("i")])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

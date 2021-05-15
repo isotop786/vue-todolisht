@@ -7,7 +7,7 @@
             <AddItem @set-todo="addTodo" />
         <div v-if="data.length >0" class="flex flex-col">
             <div v-for="d in data" :key="d.id">
-                <ItemList :name="d.name" :completed="d.completed" />
+                <ItemList @set-delete="deleteTodo(d.id)" :name="d.name" :completed="d.completed" />
              </div>
         </div>
         <div v-else>
@@ -61,7 +61,20 @@ methods:{
     })
 
     console.log(this.data)
+    },
+
+    deleteTodo(id){
+        axios.delete(`/api/item/${id}`)
+        .then(res=>{
+            console.log(res)
+            this.fetchTodo();
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
+
+
 },
 created(){
     this.fetchTodo()
