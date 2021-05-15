@@ -1,13 +1,25 @@
 <template>
-  <div class="alert alert-secondary d-flex "  :class="onProgress? 'alert-success ':'' ">
+
+
+  <div class="alert alert-secondary d-flex "  :class="onProgress ? 'alert-success ':''">
+
+
+
+
 
       <div class="d-flex flex-column ">
           <h4 :class="completed !=0 ? 'text-muted': '' "><span v-if="completed !=0"><del>{{name}}</del></span><span v-else> {{name}} </span> </h4>
-      <div  class="align-self-start" v-if="completed == 0">Done :
+      <div  class="" v-if="completed == 0">
+           On Progress <input @change.prevent="()=>{onProgress =true}" type="radio"/>
+           <br>
+        <p class="mt-3">
+
+              Complete
 
           <input type="checkbox" @change.prevent="onChange"/>
-          <br>
-          On Progress <input @change.prevent="()=>{onProgress =true}" type="radio"/>
+
+        </p>
+
       </div>
 
       </div>
@@ -17,6 +29,7 @@
       <span class="ml-auto"  @click.prevent="deleteTodo"><i class="fa text-danger fa-trash" aria-hidden="true"></i></span>
       </div>
   </div>
+
 </template>
 
 <script>

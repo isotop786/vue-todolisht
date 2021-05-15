@@ -1992,7 +1992,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddItem",
   data: function data() {
@@ -2056,25 +2055,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Header"
 });
@@ -2092,6 +2072,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20077,7 +20070,7 @@ var render = function() {
             _c("div", { staticClass: "form-group" }, [
               _c("label", { staticClass: "h3" }, [_vm._v("Add New Task")]),
               _vm._v(" "),
-              _c("div", { staticClass: "input-group mb-3" }, [
+              _c("div", { staticClass: "input-group mb-4 " }, [
                 _c("input", {
                   directives: [
                     {
@@ -20087,11 +20080,11 @@ var render = function() {
                       expression: "todo"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control P-3",
                   attrs: {
                     type: "text",
                     placeholder: "e.g Hit the gym",
-                    "aria-describedby": "button-addon2"
+                    "aria-describedby": "inputGroup-sizing-lg"
                   },
                   domProps: { value: _vm.todo },
                   on: {
@@ -20109,7 +20102,7 @@ var render = function() {
                     staticClass: "btn btn-info",
                     attrs: {
                       type: "submit",
-                      id: "button-addon2",
+                      id: "inputGroup-sizing-lg",
                       disabled: !_vm.todo,
                       value: "Add Task"
                     }
@@ -20208,79 +20201,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "nav",
-        { staticClass: "navbar navbar-expand-lg navbar-dark bg-info" },
-        [
-          _c("a", { staticClass: "navbar-brand ", attrs: { href: "#" } }, [
-            _vm._v("Task Manager")
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "navbar-toggler",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#navbarNav",
-                "aria-controls": "navbarNav",
-                "aria-expanded": "false",
-                "aria-label": "Toggle navigation"
-              }
-            },
-            [_c("span", { staticClass: "navbar-toggler-icon" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarNav" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav" }, [
-                _c("li", { staticClass: "nav-item active" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Home "),
-                    _c("span", { staticClass: "sr-only" }, [
-                      _vm._v("(current)")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Features")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Pricing")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link disabled",
-                      attrs: {
-                        href: "#",
-                        tabindex: "-1",
-                        "aria-disabled": "true"
-                      }
-                    },
-                    [_vm._v("Disabled")]
-                  )
-                ])
-              ])
-            ]
-          )
-        ]
-      )
+    return _c("div", { staticClass: "text-center bg-info p-3 row" }, [
+      _c("div", { staticClass: "col-md" }, [
+        _c(
+          "h3",
+          { staticClass: "display-4 text-light ml-4", attrs: { href: "#" } },
+          [_vm._v("Task Manager")]
+        )
+      ])
     ])
   }
 ]
@@ -20321,20 +20249,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm.completed == 0
-          ? _c("div", { staticClass: "align-self-start" }, [
-              _vm._v("Done :\n\n        "),
-              _c("input", {
-                attrs: { type: "checkbox" },
-                on: {
-                  change: function($event) {
-                    $event.preventDefault()
-                    return _vm.onChange($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v("\n        On Progress "),
+          ? _c("div", {}, [
+              _vm._v("\n         On Progress "),
               _c("input", {
                 attrs: { type: "radio" },
                 on: {
@@ -20345,7 +20261,22 @@ var render = function() {
                     })($event)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("p", { staticClass: "mt-3" }, [
+                _vm._v("\n\n            Complete\n\n        "),
+                _c("input", {
+                  attrs: { type: "checkbox" },
+                  on: {
+                    change: function($event) {
+                      $event.preventDefault()
+                      return _vm.onChange($event)
+                    }
+                  }
+                })
+              ])
             ])
           : _vm._e()
       ]),
