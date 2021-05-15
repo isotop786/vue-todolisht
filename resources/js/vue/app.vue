@@ -8,7 +8,6 @@
         <div v-if="data.length >0" class="flex flex-col">
             <div v-for="d in data" :key="d.id">
                 <ItemList
-
                 @update-todo="updateTodo(d.id)" @set-delete="deleteTodo(d.id)" :name="d.name" :completed="d.completed" />
              </div>
         </div>
@@ -16,8 +15,6 @@
             <p>Loading todos...</p>
         </div>
         </div>
-
-
 
         <Footer/>
     </div>
