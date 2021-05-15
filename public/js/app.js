@@ -2102,9 +2102,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ItemList",
   props: ['name', 'completed'],
+  data: function data() {
+    return {
+      onProgress: false
+    };
+  },
   created: function created() {
     console.log("completed is " + this.completed);
   },
@@ -20057,11 +20073,9 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-3" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6 ml-3 text-center" }, [
+          _c("div", { staticClass: "col-md ml-3 text-center" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "h3" }, [_vm._v("Add new Todo")]),
+              _c("label", { staticClass: "h3" }, [_vm._v("Add New Task")]),
               _vm._v(" "),
               _c("div", { staticClass: "input-group mb-3" }, [
                 _c("input", {
@@ -20076,7 +20090,7 @@ var render = function() {
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
-                    placeholder: "e.g take a small walk",
+                    placeholder: "e.g Hit the gym",
                     "aria-describedby": "button-addon2"
                   },
                   domProps: { value: _vm.todo },
@@ -20092,20 +20106,18 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group-append" }, [
                   _c("input", {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-info",
                     attrs: {
                       type: "submit",
                       id: "button-addon2",
                       disabled: !_vm.todo,
-                      value: "Add Todo"
+                      value: "Add Task"
                     }
                   })
                 ])
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-3" })
+          ])
         ])
       ]
     )
@@ -20147,7 +20159,7 @@ var staticRenderFns = [
       [
         _c("p", { staticClass: "text-gray-500" }, [
           _vm._v(
-            "\n       Todo list. Created with Vue.js on the back of Laravel "
+            "\n       Task Manager. Created with Vue.js on the back of Laravel "
           ),
           _c("br"),
           _vm._v("\n      Developed by "),
@@ -20202,7 +20214,7 @@ var staticRenderFns = [
         { staticClass: "navbar navbar-expand-lg navbar-dark bg-info" },
         [
           _c("a", { staticClass: "navbar-brand ", attrs: { href: "#" } }, [
-            _vm._v("Todo List")
+            _vm._v("Task Manager")
           ]),
           _vm._v(" "),
           _c(
@@ -20294,46 +20306,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", { class: _vm.completed != 0 ? "text-muted" : "" }, [
-      _vm.completed != 0
-        ? _c("span", [_c("del", [_vm._v(_vm._s(_vm.name))])])
-        : _c("span", [_vm._v(" " + _vm._s(_vm.name) + " ")]),
+  return _c(
+    "div",
+    {
+      staticClass: "alert alert-secondary d-flex ",
+      class: _vm.onProgress ? "alert-success " : ""
+    },
+    [
+      _c("div", { staticClass: "d-flex flex-column " }, [
+        _c("h4", { class: _vm.completed != 0 ? "text-muted" : "" }, [
+          _vm.completed != 0
+            ? _c("span", [_c("del", [_vm._v(_vm._s(_vm.name))])])
+            : _c("span", [_vm._v(" " + _vm._s(_vm.name) + " ")])
+        ]),
+        _vm._v(" "),
+        _vm.completed == 0
+          ? _c("div", { staticClass: "align-self-start" }, [
+              _vm._v("Done :\n\n        "),
+              _c("input", {
+                attrs: { type: "checkbox" },
+                on: {
+                  change: function($event) {
+                    $event.preventDefault()
+                    return _vm.onChange($event)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v("\n        On Progress "),
+              _c("input", {
+                attrs: { type: "radio" },
+                on: {
+                  change: function($event) {
+                    $event.preventDefault()
+                    return (function() {
+                      _vm.onProgress = true
+                    })($event)
+                  }
+                }
+              })
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
-      _c(
-        "span",
-        {
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.deleteTodo($event)
-            }
-          }
-        },
-        [
-          _c("i", {
-            staticClass: "fa fa-trash",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _vm.completed == 0
-      ? _c("p", [
-          _vm._v("Done :\n\n        "),
-          _c("input", {
-            attrs: { type: "checkbox" },
+      _c("div", { staticClass: "d-flex  ml-auto" }, [
+        _c(
+          "span",
+          {
+            staticClass: "ml-auto",
             on: {
-              change: function($event) {
+              click: function($event) {
                 $event.preventDefault()
-                return _vm.onChange($event)
+                return _vm.deleteTodo($event)
               }
             }
-          })
-        ])
-      : _vm._e()
-  ])
+          },
+          [
+            _c("i", {
+              staticClass: "fa text-danger fa-trash",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
