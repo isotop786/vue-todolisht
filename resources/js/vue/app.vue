@@ -1,30 +1,71 @@
 <template>
-    <div>
-        <p>Hello</p>
-        <div v-if="data.length >0">
+
+    <div >
+        <Header/>
+
+        <div class="container p-4 text-center mb-6">
+            <AddItem @set-todo="addTodo" />
+        <div v-if="data.length >0" class="flex flex-col">
             <div v-for="d in data" :key="d.id">
-                <h3>{{d.name}}</h3>
-                <p>Comleted: <input type="checkbox"  :checked="!d.completed"/></p>
-            </div>
+                <ItemList :name="d.name" :completed="d.completed" />
+             </div>
         </div>
+        <div v-else>
+            <p>Loading todos...</p>
+        </div>
+        </div>
+
+
+
+        <Footer/>
     </div>
 </template>
 
 <script>
+import ItemList from './components/ItemList'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import AddItem from './components/AddItem'
 import axios from 'axios'
 export default {
+    name:"App",
+    components:{
+        ItemList,
+        Header,
+        Footer,
+        AddItem
+    },
+
 data(){
     return{
-        data:null
+        data:[]
     }
 },
-created(){
-    axios.get('/api/items')
+methods:{
+    addTodo(todo){
+        axios.post('/api/item/store',{"item":{
+            "name":todo
+        }})
+        .then(res=>{
+            console.log(res)
+            this.fetchTodo()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    },
+    fetchTodo(){
+         axios.get('/api/items')
     .then(res=>{
         this.data = res.data
     })
 
     console.log(this.data)
-}
+    }
+},
+created(){
+    this.fetchTodo()
+},
+
 }
 </script>
