@@ -1,9 +1,9 @@
 <template>
   <div>
-      <h3>{{name}} <span @click.prevent="deleteTodo"><i class="fa fa-trash" aria-hidden="true"></i></span></h3>
-      <p>Completed: {{completed !=0 ? 'true': 'false'}}
+      <h3 :class="completed !=0 ? 'text-muted': '' "><span v-if="completed !=0"><del>{{name}}</del></span><span v-else> {{name}} </span> <span @click.prevent="deleteTodo"><i class="fa fa-trash" aria-hidden="true"></i></span></h3>
+      <p v-if="completed == 0">Done :
 
-          <input type="checkbox" :checked="completed !=0"/>
+          <input type="checkbox" @change.prevent="onChange"/>
       </p>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
 name:"ItemList",
 props:['name','completed'],
 created(){
-    console.log(this.completed)
+    console.log("completed is "+this.completed)
 },
 methods:{
     deleteTodo(){
@@ -22,9 +22,13 @@ methods:{
         if(con){
             this.$emit('set-delete')
         }else{
-            alert(0)
+
+
         }
 
+    },
+    onChange(){
+        this.$emit('update-todo')
     }
 }
 }

@@ -1874,6 +1874,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1925,6 +1927,21 @@ __webpack_require__.r(__webpack_exports__);
         _this3.fetchTodo();
       })["catch"](function (err) {
         console.log(err);
+      });
+    },
+    updateTodo: function updateTodo(id) {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_4___default().put("/api/item/".concat(id), {
+        "item": {
+          "completed": true
+        }
+      }).then(function (res) {
+        console.log(res);
+
+        _this4.fetchTodo();
+      })["catch"](function (err) {
+        return console.log(err);
       });
     }
   },
@@ -2089,7 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "ItemList",
   props: ['name', 'completed'],
   created: function created() {
-    console.log(this.completed);
+    console.log("completed is " + this.completed);
   },
   methods: {
     deleteTodo: function deleteTodo() {
@@ -2097,9 +2114,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (con) {
         this.$emit('set-delete');
-      } else {
-        alert(0);
-      }
+      } else {}
+    },
+    onChange: function onChange() {
+      this.$emit('update-todo');
     }
   }
 });
@@ -19978,6 +19996,9 @@ var render = function() {
                       _c("ItemList", {
                         attrs: { name: d.name, completed: d.completed },
                         on: {
+                          "update-todo": function($event) {
+                            return _vm.updateTodo(d.id)
+                          },
                           "set-delete": function($event) {
                             return _vm.deleteTodo(d.id)
                           }
@@ -20274,8 +20295,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [
-      _vm._v(_vm._s(_vm.name) + " "),
+    _c("h3", { class: _vm.completed != 0 ? "text-muted" : "" }, [
+      _vm.completed != 0
+        ? _c("span", [_c("del", [_vm._v(_vm._s(_vm.name))])])
+        : _c("span", [_vm._v(" " + _vm._s(_vm.name) + " ")]),
+      _vm._v(" "),
       _c(
         "span",
         {
@@ -20295,17 +20319,20 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("p", [
-      _vm._v(
-        "Completed: " +
-          _vm._s(_vm.completed != 0 ? "true" : "false") +
-          "\n\n        "
-      ),
-      _c("input", {
-        attrs: { type: "checkbox" },
-        domProps: { checked: _vm.completed != 0 }
-      })
-    ])
+    _vm.completed == 0
+      ? _c("p", [
+          _vm._v("Done :\n\n        "),
+          _c("input", {
+            attrs: { type: "checkbox" },
+            on: {
+              change: function($event) {
+                $event.preventDefault()
+                return _vm.onChange($event)
+              }
+            }
+          })
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
